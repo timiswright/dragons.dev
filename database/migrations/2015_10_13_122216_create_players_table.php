@@ -19,6 +19,7 @@ class CreatePlayersTable extends Migration
             $table->string('first_name');
             $table->string('last_name');
             $table->string('gender', 1);
+            $table->string('email');
             $table->string('mobile');
             $table->integer('rating');
             $table->string('position');
