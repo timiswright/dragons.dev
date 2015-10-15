@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Team;
 use App\Player;
 use Illuminate\Http\Request;
 use App\Http\Requests\PlayerRequest;
@@ -28,7 +29,8 @@ class PlayerController extends Controller
      */
     public function create()
     {
-        return view('players.create');
+        $teams = Team::lists('team_name', 'id');
+        return view('players.create')->withTeams($teams);
     }
 
     /**
@@ -75,12 +77,13 @@ class PlayerController extends Controller
     public function edit($id)
     {
         $player = Player::findOrFail($id);
+        $teams = Team::lists('team_name', 'id');
 
         if (is_null($player))
         {
             return Redirect::route('players.index');
         }
-        return view('players.edit')->withPlayer($player);
+        return view('players.edit')->withPlayer($player)->withTeams($teams);
     }
 
     /**
@@ -90,7 +93,7 @@ class PlayerController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function update(Request $request, $id)
+    public function update(PlayerRequest $request, $id)
     {
         $player = Player::findOrFail($id);
 

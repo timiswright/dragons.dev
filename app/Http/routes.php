@@ -17,4 +17,5 @@ Route::get('/', function () {
 
 Route::resource('players', 'PlayerController');
 Route::resource('events', 'EventController');
+Route::resource('teams', 'TeamController');
 //Route::get('/my/{id}', 'EventPlayerController@playerindex');

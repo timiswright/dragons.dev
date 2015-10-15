@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use App\Http\Requests\Request;
 
-class PlayerRequest extends Request
+class TeamRequest extends Request
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,14 +24,7 @@ class PlayerRequest extends Request
     public function rules()
     {
         return [
-            'first_name' => 'required', 
-            'last_name' => 'required', 
-            'gender' => 'required',
-            'email' => 'required', 
-            'mobile' => 'required', 
-            'team_id' => 'required', 
-            'rating' => 'required',
-            'position' => ''
+        'team_name' => 'required',
         ];
     }
 }

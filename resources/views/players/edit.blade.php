@@ -55,16 +55,7 @@
                 <div class="form-group">
 
                     {!! Form::label('team_id', 'Main Team') !!}
-                    {!! Form::select('team_id', 
-                        [
-                            '1' => '1`s', 
-                            '2' => '2`s',
-                            '3' => '3`s',
-                            '4' => '4`s',
-                            '5' => '5`s',
-                            '6' => '6`s',
-                            '7' => '7`s'
-                        ], null, 
+                    {!! Form::select('team_id', $teams, null, 
                     [
                         'class' => 'form-control', 
                         'required' => 'required',
