@@ -12,7 +12,9 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('pages.home');
 });
 
-Route::resource('player', 'PlayersController');
+Route::resource('players', 'PlayerController');
+Route::resource('events', 'EventController');
+//Route::get('/my/{id}', 'EventPlayerController@playerindex');
