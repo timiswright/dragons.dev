@@ -17,7 +17,7 @@ class PlayerController extends Controller
      */
     public function index()
     {
-        $players = Player::all();
+        $players = Player::orderBy('first_name')->get();
 
         return view('players.index')->withPlayers($players);
     }
