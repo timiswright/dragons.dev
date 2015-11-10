@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Team;
+use App\Event;
 use App\Player;
+use App\EventPlayer;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Requests\PlayerRequest;
 use App\Http\Controllers\Controller;
@@ -126,5 +129,10 @@ class PlayerController extends Controller
 
         return redirect()->route('players.index');
     }
+
+    
+
+    
+
 
 }

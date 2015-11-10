@@ -5994,4 +5994,8 @@ button.close {
 body {
   padding-top: 70px; }
 
+.row {
+  padding: 40px;
+  border-bottom: 1px solid #ccc; }
+
 /*# sourceMappingURL=app.css.map */
