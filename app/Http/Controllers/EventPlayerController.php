@@ -46,7 +46,7 @@ class EventPlayerController extends Controller
       
          
 
-        return $upcomingEventsFiltered;
+        //return $upcomingEventsFiltered;
 
         //flash()->success('Welcome Back '.$player->first_name.'!','');
         return view('players.availability', [
