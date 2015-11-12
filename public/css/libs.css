@@ -931,4 +931,52 @@ body.stop-scrolling {
     -o-transform: translateY(145%);
     transform: translateY(145%); } }
 
+.level1 {
+    font-size: 24px;
+    color: green;
+}
+
+.level2 {
+    font-size: 24px;
+    color: red;
+}
+
+.level3 {
+    font-size: 24px;
+    color: orange;
+}
+
+.level4 {
+    font-size: 24px;
+    color: black;
+}
+
+.form-control {
+    display: block;
+    width: 100%;
+    height: 43px;
+    padding: 9px 24px;
+    font-size: 18px;
+}
+
+.form-group {
+    width: 100%;
+}
+
+.form-group {
+      display: inline-block;
+      margin-bottom: 0;
+      vertical-align: middle;
+    }
+   
+    .form-control {
+      display: inline-block;
+      width: auto;
+      vertical-align: middle;
+    }
+
+  
+    .input-group > .form-control {
+      width: 100%;
+    }
 /*# sourceMappingURL=libs.css.map */

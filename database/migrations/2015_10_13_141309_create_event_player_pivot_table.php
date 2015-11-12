@@ -17,7 +17,7 @@ class CreateEventPlayerPivotTable extends Migration
             $table->foreign('event_id')->references('id')->on('events')->onDelete('cascade');
             $table->integer('player_id')->unsigned()->index();
             $table->foreign('player_id')->references('id')->on('players')->onDelete('cascade');
-            $table->string('availability');
+            $table->tinyInteger('availability')->nullable();
             $table->string('availability_notes');
             $table->timestamps();
         });

@@ -17,6 +17,7 @@ elixir(function(mix) {
             'libs/sweetalert-dev.js'
         ], './public/js/libs.js')
         .styles([
-            'libs/sweetalert.css'
+            'libs/sweetalert.css',
+            'libs/main.css',
         ], './public/css/libs.css');
 });

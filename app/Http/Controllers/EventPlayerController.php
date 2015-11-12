@@ -78,13 +78,17 @@ class EventPlayerController extends Controller
             $availability = array_get($request->input('availability'), $eventId);
     // only add the user's response to the array if at least one of them is
     // filled out
+            if ($availability == 3){
+                $availability = null;
+            }
+
+
+
             if ($notes !== '' || ! is_null($availability)) {
                 $events[$eventId] = ['availability_notes' => $notes, 'availability' => $availability];
             }
- 
         }
-        return $events;
-                $player->events()->sync($events);
+            $player->events()->sync($events);
 
         //if you have to fill out note and radios
         //foreach ($request->input('availability') as $eventId => $available) {

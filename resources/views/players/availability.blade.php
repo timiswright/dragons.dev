@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('loginhash')
 @section('content')
 
 @if (count($errors) > 0)
@@ -18,39 +18,96 @@
 ]) !!}
 
 
+<div class="form-group">
+@foreach($upcomingEventsFiltered as $event)
+    <div class="row  col-border">
+                    
+            @if ($event['responded'] & $event['availability'])
+                <?php
+                    //LEVEL 1
+                     $level = 1; 
+                     $colour = 'green'; 
+                    ?>
+            @endif
+            
+            @if ($event['responded'] & !$event['availability'] & isset($event['availability']))
+                <?php
+                    //LEVEL 2
+                    $level = 2; 
+                    $colour = 'red'; 
+                ?>
+            @endif
+            
+            @if($event['responded'] & !isset($event['availability']))
+                <?php
+                    //LEVEL 3
+                    $level = 3; 
+                    $colour = 'orange'; 
+                ?>
+            @endif
+            
+            @if( !$event['responded'] & isset($event['responded']) & (!$event['availability']) & isset($event['availability'])) 
+                <?php
+                    //LEVEL 4
+                    $level = 4;
+                    $colour = 'black'; 
+                ?>
+            @endif
 
-
-    @foreach($upcomingEventsFiltered as $event)
-    <div class="row">
-        
-        <div class="col-md-4">
+        <div class="col-md-4 level{{$level}} col-border">     
             {{ $event['nicedate'] }}
         </div>
-        <div class="col-md-4">
-        {{ $event['availability'] }}
-{!! Form::radio('status','disabled', $event['availability']) !!} Maybe
-    {!! Form::radio('status','disabled', $event['availability']) !!} Disabled    
-{!! Form::radio('status','enabled', $event['availability']) !!} Enabled
-
-
-
-
-<br><Br>
-            {!! Form::radio('availability['. $event['id'] .']', null, $event['availability']) !!} Not Available 
-                &nbsp; &nbsp; &nbsp; 
-            {!! Form::radio('availability['. $event['id'] .']', null, $event['availability']) !!} Available
-                &nbsp; &nbsp; &nbsp;
-            {!! Form::radio('availability['. $event['id'] .']', null, $event['availability']) !!} Still Unsure 
-                &nbsp; &nbsp; &nbsp;
-        </div>
-        <div class="col-md-4">
-                {!! Form::label('availability_notes', 'Notes:') !!}
-                {!! Form::text('availability_notes['. $event['id'] .']', $event['availability_notes'], ['class' => 'form-control']) !!}
-        </div>
         
+        <div class="col-md-4 level{{$level}} col-border">
+            @if ($level == 1)
+            {!! Form::radio('availability['. $event['id'] .']','1', true) !!} Yes
+            &nbsp;&nbsp;&nbsp;
+            {!! Form::radio('availability['. $event['id'] .']','0', false) !!} No    
+            &nbsp;&nbsp;&nbsp;
+            {!! Form::radio('availability['. $event['id'] .']','3', false) !!} Maybe
+            @endif
+
+            @if ($level == 2)
+            {!! Form::radio('availability['. $event['id'] .']','1', false) !!} Yes
+            &nbsp;&nbsp;&nbsp;
+            {!! Form::radio('availability['. $event['id'] .']','0', true) !!} No    
+            &nbsp;&nbsp;&nbsp;
+            {!! Form::radio('availability['. $event['id'] .']','3', false) !!} Maybe
+            @endif
+
+            @if ($level == 3)
+            {!! Form::radio('availability['. $event['id'] .']','1', false) !!} Yes
+            &nbsp;&nbsp;&nbsp;
+            {!! Form::radio('availability['. $event['id'] .']','0', false) !!} No    
+            &nbsp;&nbsp;&nbsp;
+            {!! Form::radio('availability['. $event['id'] .']','3', true) !!} Maybe
+            @endif
+
+            @if ($level == 4)
+            {!! Form::radio('availability['. $event['id'] .']','1', false) !!} Yes
+            &nbsp;&nbsp;&nbsp;
+            {!! Form::radio('availability['. $event['id'] .']','0', false) !!} No    
+            &nbsp;&nbsp;&nbsp;
+            {!! Form::radio('availability['. $event['id'] .']','3', false) !!} Maybe
+            @endif
+
+        </div>
+        <div class="col-md-4 level{{$level}} col-border">
+                {!! Form::label('availability_notes', 'Notes:') !!}
+                {!! Form::text('availability_notes['. $event['id'] .']', $event['availability_notes'], ['class' => 'form-control input-lg']) !!}
+        </div>
 
     </div>
+    <hr width="60%">
     @endforeach
-    {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
+    <div class="row  col-border">
+        <div class="col-md-12 col-border">
+            <hr width="80%">
+                <center>
+                    {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
+                </center>
+        </div>
+    </div>
 </form>
+</div>
 @endsection
