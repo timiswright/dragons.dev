@@ -46,3 +46,11 @@
     .input-group > .form-control {
       width: 100%;
     }
+
+@media only screen and (max-device-width: 480px) { 
+    .level1 { font-size: 41px; } 
+    .level2 { font-size: 41px; } 
+    .level3 { font-size: 41px; } 
+    .level4 { font-size: 41px; } 
+} 
+@media (min-width:960px) {  } 

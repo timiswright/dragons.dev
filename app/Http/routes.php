@@ -15,6 +15,7 @@ Route::get('/', function () {
     return view('pages.home');
 });
 
+Route::resource('weeklys', 'WeeklyController');
 Route::resource('players', 'PlayerController');
 Route::resource('events', 'EventController');
 Route::resource('teams', 'TeamController');

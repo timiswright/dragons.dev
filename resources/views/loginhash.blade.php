@@ -8,7 +8,7 @@
 </head>
         <style>
             .col-border{
-                border: 1px solid red;
+                border: 0px solid red;
             }
         </style>
     </head>
@@ -17,7 +17,7 @@
         <div class="navbar-header">
         <a class="navbar-brand" href="/">Norwich Dragons</a>
     </nav>
-        <div class="container">
+        <div class="container-fluid">
             @yield('content')
         </div>
     </body>

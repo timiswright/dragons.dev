@@ -10,13 +10,15 @@ html, body {
 
 .row {
     width: 98%;
-    margin-left: -15px;
-    margin-right: -15px;
     margin-top: 22px;
+    margin-left: 10px;
+    margin-bottom: 20px;
 }
 
-.container {
+.container-fluid {
     width: 98%;
     padding-left:20px;
     padding-right:20px;
+    margin-left: 15px;
+    margin-right: 15px;
 }

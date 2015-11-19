@@ -18,9 +18,9 @@
 ]) !!}
 
 
-<div class="form-group">
+<div class="form-group col-border">
 @foreach($upcomingEventsFiltered as $event)
-    <div class="row  col-border">
+    <div class="row col-border">
                     
             @if ($event['responded'] & $event['availability'])
                 <?php
@@ -60,6 +60,8 @@
         
         <div class="col-md-4 level{{$level}} col-border">
             @if ($level == 1)
+
+            
             {!! Form::radio('availability['. $event['id'] .']','1', true) !!} Yes
             &nbsp;&nbsp;&nbsp;
             {!! Form::radio('availability['. $event['id'] .']','0', false) !!} No    
