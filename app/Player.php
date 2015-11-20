@@ -34,7 +34,7 @@ class Player extends Model
     public function events()
     {
         return $this->belongsToMany('App\Event')
-        ->withPivot("availability", "availability_notes");
+        ->withPivot("availability", "availability_notes")->withTimestamps();
     }
 
     

@@ -18,11 +18,12 @@
 ]) !!}
 
 
+
 <div class="form-group col-border">
 @foreach($upcomingEventsFiltered as $event)
     <div class="row col-border">
                     
-            @if ($event['responded'] & $event['availability'])
+            @if ($event['responded'] & ($event['availability'] == 1))
                 <?php
                     //LEVEL 1
                      $level = 1; 
@@ -30,7 +31,7 @@
                     ?>
             @endif
             
-            @if ($event['responded'] & !$event['availability'] & isset($event['availability']))
+            @if ($event['responded'] & ($event['availability'] == 0))
                 <?php
                     //LEVEL 2
                     $level = 2; 
@@ -38,7 +39,7 @@
                 ?>
             @endif
             
-            @if($event['responded'] & !isset($event['availability']))
+            @if($event['responded'] & ($event['availability'] == 3))
                 <?php
                     //LEVEL 3
                     $level = 3; 
@@ -46,13 +47,14 @@
                 ?>
             @endif
             
-            @if( !$event['responded'] & isset($event['responded']) & (!$event['availability']) & isset($event['availability'])) 
+            @if( !$event['responded'] & (!$event['availability'])) 
                 <?php
                     //LEVEL 4
                     $level = 4;
                     $colour = 'black'; 
                 ?>
             @endif
+
 
         <div class="col-md-4 level{{$level}} col-border">     
             {{ $event['nicedate'] }}

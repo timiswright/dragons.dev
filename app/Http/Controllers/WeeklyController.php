@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use DB;
 use App\Player;
 use App\Team;
 use App\EventPlayer;
@@ -18,38 +19,81 @@ class WeeklyController extends Controller
     public function index()
     {
 
-        $event_id = 1;
-        $filtered = array();
+        DB::enableQueryLog();
+   
+    $event_id = 2;
+    $filtered = array();
 
-        $teams = Team::orderBy('team_name')->get();
 
-        foreach ($teams as $team) {
-            
-             $filtered[$team->id] = $team->toArray();
-             $filtered[$team->id]['players'] = Team::find($team->id)->players()
-             ->orderBy('rating')
-             ->orderBy('position', 'is', 'null')
-             ->orderBy('position', 'Asc')  
-             ->orderBy('first_name')
-             ->get();          
-            
 
-        }
+    //SELECT *
+    //FROM `players`  
+    //LEFT JOIN `event_player` 
+    //ON event_player.`event_id`=1
+    //AND event_player.player_id=players.id where team_id=1
 
+
+    // $teams = Team::orderBy('team_name')->get();
+    //     foreach ($teams as $team) { 
+    //          $filtered[$team->id] = $team;
+    //          $filtered[$team->id]['players'] = 
+
+    //          Team::find($team->id)->players()
+    //          ->select('id AS player_id', 'team_id', 'first_name', 'last_name', 'event_id', 'rating', 'position', 'starred', 'mobile', 'availability', 'availability_notes')
+    //          ->leftjoin('event_player', function ($join) {
+    //                 $join->on('event_player.player_id', '=', 'players.id'); 
+    //                 $join->where('event_player.event_id', '=', '1');
+    //             })
+    //                 ->where('team_id', $team->id)
+    //                 ->orderBy('rating')
+    //                 ->orderBy('position', 'is', 'null')
+    //                 ->orderBy('position', 'Asc')  
+    //                 ->orderBy('first_name')
+    //          ->get();               
+    //     }
+
+        // $teams = Team::with(['players' => function ($query) {
+        //     $query
+        //         ->orderBy('rating')
+        //         ->orderBy('position', 'is', 'null')
+        //         ->orderBy('position', 'ASC')
+        //         ->orderBy('first_name')
+        //         ;
+        //     }])
         
 
+           //->get();
 
 
-        
+        $teams = Team::with(['players' => function ($query) {
+            $query
+                ->leftjoin('event_player', function ($join) {
+                    $join->on('event_player.player_id', '=', 'players.id');
+                    $join->where('event_player.event_id', '=', '1');
+                })
 
-           
-            return $filtered;
+                ->orderBy('position', 'is', 'null')
+                ->orderBy('position', 'ASC')
+                ->orderBy('availability', 'DESC')
+                ->orderBy('rating')
+                ->orderBy('first_name')
+                ;
+            }])
 
-       
+           ->get();
 
 
+    
 
-        
+          
+
+
+    //return DB::getQueryLog();
+
+   
+
+    return view('weekly.index')->withTeams($teams);
+
 
 
     }

@@ -8,6 +8,7 @@ use App\EventPlayer;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Requests;
+use App\Http\Requests\EventPlayerRequest;
 use App\Http\Controllers\Controller;
 
 class EventPlayerController extends Controller
@@ -35,8 +36,8 @@ class EventPlayerController extends Controller
         
         if ($playerEvent = $playerEvents->find($event)) {
             $upcomingEventsFiltered[$event->id]['responded']          = true;
-            $upcomingEventsFiltered[$event->id]['availability_notes'] = EventPlayer::where('event_id', $event->id)->first()->availability_notes;
-            $upcomingEventsFiltered[$event->id]['availability']       = EventPlayer::where('event_id', $event->id)->first()->availability;
+            $upcomingEventsFiltered[$event->id]['availability_notes'] = EventPlayer::where('event_id', $event->id)->where('player_id', $player->id)->first()->availability_notes;
+            $upcomingEventsFiltered[$event->id]['availability']       = EventPlayer::where('event_id', $event->id)->where('player_id', $player->id)->first()->availability;
         } else {
             $upcomingEventsFiltered[$event->id]['responded']          = false;
             $upcomingEventsFiltered[$event->id]['availability_notes'] = false;
@@ -65,37 +66,52 @@ class EventPlayerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(EventPlayerRequest $request, $id)
     {
+        return $request->all();
+
+
+
         $player = Player::findOrFail($id);
+
+        
+
         $events = [];
         foreach ($request->input('availability_notes') as $eventId => $notes) {
-
 
     // we already have $notes as we're foreaching through
     // _POST[availability_notes], but we need to get the corresponding
     // availability field
             $availability = array_get($request->input('availability'), $eventId);
+
+
     // only add the user's response to the array if at least one of them is
     // filled out
-            if ($availability == 3){
-                $availability = null;
+
+            //if there is a note OR a select box picked then update.
+            if ($notes !== '' || !is_null($availability)) {
+                 $events[$eventId] = ['availability_notes' => $notes, 'availability' => $availability];
             }
 
-
-
-            if ($notes !== '' || ! is_null($availability)) {
-                $events[$eventId] = ['availability_notes' => $notes, 'availability' => $availability];
+            // if someone has put just a note then add that and set availibilty to 3
+            if ($notes !== '' && is_null($availability)) {
+                 $events[$eventId] = ['availability_notes' => $notes, 'availability' => 3];
             }
         }
-            $player->events()->sync($events);
+
+        return $events;
+           $player->events()->sync($events);
 
         //if you have to fill out note and radios
         //foreach ($request->input('availability') as $eventId => $available) {
         //    $events[$eventId] = ['availability' => $available, 'availability_notes' => $request->input('availability_notes')[$eventId]];
         //} 
+
+  
+
         flash()->success('Updated!' , 'Thank you for updating your availability.');
-        return redirect()->back();
+    
+    return redirect()->back();
         
     }
 

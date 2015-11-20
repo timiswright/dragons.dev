@@ -19,13 +19,15 @@ class EventPlayer extends Model
         'availability_notes'
     ];
 
-    protected $casts = [
-    'availability' => 'boolean',
-    ];
+    //protected $casts = [
+    //'availability' => 'boolean',
+    //];
 
     public function setAvailabilityNotesAttribute($name)
     {
         $this->attributes['availability_notes'] = trim($name) !== '' ? $name : null;
     }
+
+
 
 }

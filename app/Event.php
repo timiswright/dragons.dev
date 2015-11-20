@@ -32,11 +32,11 @@ class Event extends Model
     public function players()
     {
         return $this->belongsToMany('App\Player')
-        ->withPivot("availability", "availability_notes");
+        ->withPivot("availability", "availability_notes")->withTimestamps();
     }
 
     public function eventplayers()
     {
-        return $this->belongsTo('App\Event');
+        return $this->belongsTo('App\Event')->withTimestamps();
     }
 }

@@ -21,3 +21,4 @@ Route::resource('events', 'EventController');
 Route::resource('teams', 'TeamController');
 Route::resource('eventplayer', 'EventPlayerController');
 Route::get('/{id}', 'EventPlayerController@index');
+
